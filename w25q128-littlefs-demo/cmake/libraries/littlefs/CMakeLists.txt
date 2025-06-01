@@ -1,19 +1,19 @@
 project(littlefs VERSION 1.0.0)
 
 set(SOURCES 
-    lfs.c
-    lfs_util.c
+    ../../../../libraries/littlefs/lfs.c
+    ../../../../libraries/littlefs/lfs_util.c
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}
 PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ../../../../libraries/littlefs/
 )
 
 target_link_libraries(${PROJECT_NAME}
 PUBLIC
     stm32cubemx
-    nor_flash
+    w25q128_lfs
 )

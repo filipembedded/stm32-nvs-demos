@@ -39,6 +39,7 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
+add_subdirectory(cmake/libraries)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -48,20 +49,13 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    ../libraries/w25q128/low-level-driver/w25q128_ll.c
-    ../libraries/w25q128/littlefs-level-driver/w25q128_lfs.c
 
-    ../libraries/littlefs/lfs.c
-    ../libraries/littlefs/lfs_util.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    ../libraries/w25q128/low-level-driver
-    ../libraries/w25q128/littlefs-level-driver
 
-    ../libraries/littlefs/
 )
 
 # Add project symbols (macros)
@@ -74,5 +68,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
 
     # Add user defined libraries
+    littlefs
 
+    w25q128_ll
+    w25q128_lfs
 )
