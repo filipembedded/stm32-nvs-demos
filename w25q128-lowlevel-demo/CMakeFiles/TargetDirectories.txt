@@ -1,0 +1,11 @@
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/CMakeFiles/winbond_flash.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/CMakeFiles/edit_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/CMakeFiles/rebuild_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/Drivers/User_drivers/CMakeFiles/edit_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/Drivers/User_drivers/CMakeFiles/rebuild_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/Drivers/User_drivers/w25q128_flash/CMakeFiles/w25q128.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/Drivers/User_drivers/w25q128_flash/CMakeFiles/edit_cache.dir
+C:/Users/filip/Documents/Development/STM32-NVS/w25q128-lowlevel-demo/Drivers/User_drivers/w25q128_flash/CMakeFiles/rebuild_cache.dir
