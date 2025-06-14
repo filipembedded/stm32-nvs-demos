@@ -23,7 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include "stdio.h"
-#include "w25q128.h"
+#include "w25q128_ll.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,10 +70,11 @@ int main(void)
   /* USER CODE BEGIN 1 */
   uint32_t ID = 0;  
   
+  // Initialize the W25Q128 instance
   W25Q128_TypeDef w25;
-  w25.cs_port = GPIOA;
-  w25.cs_pin = GPIO_PIN_4;
-  w25.hspi = &hspi1;
+  w25.cs_port = GPIOA;     // CS pin on port A
+  w25.cs_pin = GPIO_PIN_4; // CS pin 4
+  w25.hspi = &hspi1;       // Using SPI1 as a interface to flash
 
   /* USER CODE END 1 */
 
@@ -103,16 +104,22 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t tx_data[128];
+  uint8_t transmit_buffer[128];
   int counter_1_sec = 0;
   
+  // Reset the flash
   W25Q128_Reset(&w25);
+
+  // Read JEDEC ID from flash and store it in ID
   ID = W25Q128_ReadID(&w25, ID_JEDEC);
 
+  // Read old data
   W25Q128_Read(&w25, 0, 0, 30, receive_buffer);
 
+  // Erase data stored on sector 0
   W25Q128_EraseSector(&w25, 0);
 
+  // Read data to ensure sector is erased
   W25Q128_Read(&w25, 0, 0, 30, receive_buffer);
 
   while (1)
@@ -120,11 +127,25 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    sprintf((char *)tx_data, "This is a 1 second counter: %d", counter_1_sec);
-    int data_length = strlen((char *)tx_data);
-    W25Q128_Write(&w25, 0, 0, data_length, tx_data);
+
+    // Data that will be stored in flash later on
+
+    sprintf((char *)transmit_buffer, "This is a 1 second counter: %d", 
+                                                                counter_1_sec);
+    int data_length = strlen((char *)transmit_buffer);
+
+    // Erase sector to ensure proper write operation 
+    W25Q128_EraseSector(&w25, 0);
+
+    // Write data to flash
+    W25Q128_Write(&w25, 0, 0, data_length, transmit_buffer);
+
+    // Read data from flash
     W25Q128_Read(&w25, 0, 0, data_length, receive_buffer);
+
+    // Increment counter stored in flash on every 1 second
     counter_1_sec++;
+    
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
