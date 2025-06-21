@@ -1,6 +1,7 @@
 [submodule "libraries/w25q128"]
 	path = libraries/w25q128
 	url = https://github.com/filipembedded/stm32-w25q128-flash-library
+	branch = master
 [submodule "libraries/littlefs"]
 	path = libraries/littlefs
 	url = https://github.com/littlefs-project/littlefs
