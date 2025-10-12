@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "port_stm32.h"
+#include "fram.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
