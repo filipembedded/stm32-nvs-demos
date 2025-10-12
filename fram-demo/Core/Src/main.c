@@ -91,6 +91,28 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  uint8_t buffer = 0;
+  uint8_t address = 5;
+  uint8_t data = 0xAA;
+
+  // Feed the fram instance
+  FRAM_Instance_TypeDef fram;
+  fram.context = &hspi1;
+  fram.spi_chip_select = spi_chip_select;
+  fram.spi_chip_deselect = spi_chip_deselect;
+  fram.spi_write = spi_write;
+  fram.spi_read = spi_read;
+
+
+  FRAM_ReadStatusReg(&fram, buffer);
+
+  FRAM_Write(&fram, &address, &data, sizeof(data));
+
+  FRAM_Read(&fram, &address, &data, sizeof(data));
+
+  if (data != 0xAA) {
+    for(;;);
+  }
 
   /* USER CODE END 2 */
 
