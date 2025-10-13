@@ -92,25 +92,33 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   uint8_t buffer = 0;
-  uint8_t address = 5;
-  uint8_t data = 0xAA;
+  uint8_t address = 0;
+  uint8_t data[] = "This is a FRAM memory";
+  uint8_t rxBuf[64] = {0};
+
+  PortContext_TypeDef port_context;
+  port_context.cs_pin = GPIO_PIN_4;
+  port_context.cs_port = GPIOA;
+  port_context.hspi = &hspi1;
 
   // Feed the fram instance
   FRAM_Instance_TypeDef fram;
-  fram.context = &hspi1;
+  fram.context = &port_context;
   fram.spi_chip_select = spi_chip_select;
   fram.spi_chip_deselect = spi_chip_deselect;
   fram.spi_write = spi_write;
   fram.spi_read = spi_read;
 
 
-  FRAM_ReadStatusReg(&fram, buffer);
+  FRAM_Status_TypeDef status = FRAM_ReadStatusReg(&fram, buffer);
 
-  FRAM_Write(&fram, &address, &data, sizeof(data));
+  status = FRAM_Read(&fram, &address, rxBuf, sizeof(rxBuf));
 
-  FRAM_Read(&fram, &address, &data, sizeof(data));
+  status = FRAM_Write(&fram, &address, data, sizeof(data));
 
-  if (data != 0xAA) {
+  status = FRAM_Read(&fram, &address, rxBuf, sizeof(rxBuf));
+
+  if (status != FRAM_STATUS_SUCCESS) {
     for(;;);
   }
 
@@ -196,7 +204,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -233,7 +241,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : SPI1_CS_Pin */
   GPIO_InitStruct.Pin = SPI1_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(SPI1_CS_GPIO_Port, &GPIO_InitStruct);
 
