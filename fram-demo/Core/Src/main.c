@@ -119,7 +119,7 @@ int main(void)
   status = FRAM_Read(&fram, &address, rxBuf, sizeof(rxBuf));
 
   if (status != FRAM_STATUS_SUCCESS) {
-    for(;;);
+    Error_Handler();
   }
 
   /* USER CODE END 2 */
