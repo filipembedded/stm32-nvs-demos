@@ -1,0 +1,10 @@
+{
+    "cortex-debug.liveWatchRefreshRate": 250,
+    "cortex-debug.armToolchainPath": "C:/ST/STM32CubeCLT_1.18.0/GNU-tools-for-STM32/bin",
+    "cortex-debug.armToolchainPrefix": "arm-none-eabi",
+    "files.associations": {
+        "w25q128.h": "c",
+        "main.h": "c"
+    },
+    "editor.rulers": [80]
+}

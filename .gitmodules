@@ -5,3 +5,6 @@
 [submodule "libraries/littlefs"]
 	path = libraries/littlefs
 	url = https://github.com/littlefs-project/littlefs
+[submodule "libraries/fram-xplat"]
+	path = libraries/fram-xplat
+	url = https://github.com/filipembedded/fram-xplat.git
