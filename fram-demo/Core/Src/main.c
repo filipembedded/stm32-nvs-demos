@@ -91,17 +91,13 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t buffer = 0;
-  uint8_t address = 0;
-  uint8_t data[] = "This is a FRAM memory";
-  uint8_t rxBuf[64] = {0};
-
+  
+  // Initialize FRAM instance
   PortContext_TypeDef port_context;
   port_context.cs_pin = GPIO_PIN_4;
   port_context.cs_port = GPIOA;
   port_context.hspi = &hspi1;
 
-  // Feed the fram instance
   FRAM_Instance_TypeDef fram;
   fram.context = &port_context;
   fram.spi_chip_select = spi_chip_select;
@@ -109,17 +105,194 @@ int main(void)
   fram.spi_write = spi_write;
   fram.spi_read = spi_read;
 
+  // Test variables
+  FRAM_Status_TypeDef status;
+  uint8_t test_passed = 0;
+  uint8_t test_failed = 0;
+  
+  // ===== TEST 1: Read Status Register =====
+  uint8_t status_reg = 0;
+  status = FRAM_ReadStatusReg(&fram, status_reg);
+  if (status == FRAM_STATUS_SUCCESS) {
+    test_passed++;
+  } else {
+    test_failed++;
+  }
 
-  FRAM_Status_TypeDef status = FRAM_ReadStatusReg(&fram, buffer);
+  // ===== TEST 2: Single Byte Write/Read at Address 0x0000 =====
+  uint8_t write_byte = 0xAA;
+  uint8_t read_byte = 0x00;
+  
+  status = FRAM_Write(&fram, 0x0000, &write_byte, 1);
+  if (status != FRAM_STATUS_SUCCESS) test_failed++;
+  
+  status = FRAM_Read(&fram, 0x0000, &read_byte, 1);
+  if (status == FRAM_STATUS_SUCCESS && read_byte == write_byte) {
+    test_passed++;
+  } else {
+    test_failed++;
+  }
 
-  status = FRAM_Read(&fram, &address, rxBuf, sizeof(rxBuf));
+  // ===== TEST 3: Multi-byte Write/Read at Address 0x0000 =====
+  uint8_t write_data[] = "Hello FRAM!";
+  uint8_t read_data[32] = {0};
+  
+  status = FRAM_Write(&fram, 0x0000, write_data, sizeof(write_data));
+  if (status != FRAM_STATUS_SUCCESS) test_failed++;
+  
+  status = FRAM_Read(&fram, 0x0000, read_data, sizeof(write_data));
+  if (status == FRAM_STATUS_SUCCESS) {
+    uint8_t match = 1;
+    for (uint8_t i = 0; i < sizeof(write_data); i++) {
+      if (read_data[i] != write_data[i]) {
+        match = 0;
+        break;
+      }
+    }
+    if (match) {
+      test_passed++;
+    } else {
+      test_failed++;
+    }
+  } else {
+    test_failed++;
+  }
 
-  status = FRAM_Write(&fram, &address, data, sizeof(data));
+  // ===== TEST 4: Write/Read at Different Address (0x0100) =====
+  uint8_t test4_write[] = "Address 0x0100";
+  uint8_t test4_read[32] = {0};
+  
+  status = FRAM_Write(&fram, 0x0100, test4_write, sizeof(test4_write));
+  if (status != FRAM_STATUS_SUCCESS) test_failed++;
+  
+  status = FRAM_Read(&fram, 0x0100, test4_read, sizeof(test4_write));
+  if (status == FRAM_STATUS_SUCCESS) {
+    uint8_t match = 1;
+    for (uint8_t i = 0; i < sizeof(test4_write); i++) {
+      if (test4_read[i] != test4_write[i]) {
+        match = 0;
+        break;
+      }
+    }
+    if (match) {
+      test_passed++;
+    } else {
+      test_failed++;
+    }
+  } else {
+    test_failed++;
+  }
 
-  status = FRAM_Read(&fram, &address, rxBuf, sizeof(rxBuf));
+  // ===== TEST 5: Write/Read at Higher Address (0x1234) =====
+  uint8_t test5_write[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
+  uint8_t test5_read[8] = {0};
+  
+  status = FRAM_Write(&fram, 0x1234, test5_write, sizeof(test5_write));
+  if (status != FRAM_STATUS_SUCCESS) test_failed++;
+  
+  status = FRAM_Read(&fram, 0x1234, test5_read, sizeof(test5_write));
+  if (status == FRAM_STATUS_SUCCESS) {
+    uint8_t match = 1;
+    for (uint8_t i = 0; i < sizeof(test5_write); i++) {
+      if (test5_read[i] != test5_write[i]) {
+        match = 0;
+        break;
+      }
+    }
+    if (match) {
+      test_passed++;
+    } else {
+      test_failed++;
+    }
+  } else {
+    test_failed++;
+  }
 
-  if (status != FRAM_STATUS_SUCCESS) {
+  // ===== TEST 6: Verify Previous Data at 0x0000 Still Intact =====
+  uint8_t verify_data[32] = {0};
+  status = FRAM_Read(&fram, 0x0000, verify_data, sizeof(write_data));
+  if (status == FRAM_STATUS_SUCCESS) {
+    uint8_t match = 1;
+    for (uint8_t i = 0; i < sizeof(write_data); i++) {
+      if (verify_data[i] != write_data[i]) {
+        match = 0;
+        break;
+      }
+    }
+    if (match) {
+      test_passed++;
+    } else {
+      test_failed++;
+    }
+  } else {
+    test_failed++;
+  }
+
+  // ===== TEST 7: Write/Read at End of 64KB Range (0xFFF0) =====
+  uint8_t test7_write[] = "END_TEST";
+  uint8_t test7_read[16] = {0};
+  
+  status = FRAM_Write(&fram, 0xFFF0, test7_write, sizeof(test7_write));
+  if (status != FRAM_STATUS_SUCCESS) test_failed++;
+  
+  status = FRAM_Read(&fram, 0xFFF0, test7_read, sizeof(test7_write));
+  if (status == FRAM_STATUS_SUCCESS) {
+    uint8_t match = 1;
+    for (uint8_t i = 0; i < sizeof(test7_write); i++) {
+      if (test7_read[i] != test7_write[i]) {
+        match = 0;
+        break;
+      }
+    }
+    if (match) {
+      test_passed++;
+    } else {
+      test_failed++;
+    }
+  } else {
+    test_failed++;
+  }
+
+  // ===== TEST 8: Pattern Test - Alternating 0x55/0xAA =====
+  uint8_t pattern_write[16];
+  uint8_t pattern_read[16] = {0};
+  for (uint8_t i = 0; i < 16; i++) {
+    pattern_write[i] = (i % 2) ? 0xAA : 0x55;
+  }
+  
+  status = FRAM_Write(&fram, 0x0500, pattern_write, sizeof(pattern_write));
+  if (status != FRAM_STATUS_SUCCESS) test_failed++;
+  
+  status = FRAM_Read(&fram, 0x0500, pattern_read, sizeof(pattern_write));
+  if (status == FRAM_STATUS_SUCCESS) {
+    uint8_t match = 1;
+    for (uint8_t i = 0; i < sizeof(pattern_write); i++) {
+      if (pattern_read[i] != pattern_write[i]) {
+        match = 0;
+        break;
+      }
+    }
+    if (match) {
+      test_passed++;
+    } else {
+      test_failed++;
+    }
+  } else {
+    test_failed++;
+  }
+
+  // ===== ALL TESTS COMPLETE =====
+  // Set breakpoint here to inspect test_passed and test_failed
+  // Expected: test_passed = 8, test_failed = 0
+  
+  if (test_failed > 0) {
     Error_Handler();
+  }
+  
+  // Blink LED to indicate success (toggle PA5 or your LED pin)
+  while(1) {
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    HAL_Delay(test_passed * 100); // Blink rate indicates number of passed tests
   }
 
   /* USER CODE END 2 */

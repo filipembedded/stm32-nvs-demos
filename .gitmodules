@@ -8,3 +8,4 @@
 [submodule "libraries/fram-xplat"]
 	path = libraries/fram-xplat
 	url = https://github.com/filipembedded/fram-xplat.git
+	branch = main
