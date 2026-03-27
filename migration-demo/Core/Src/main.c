@@ -25,6 +25,7 @@
 #include "stdio.h"
 
 #include "legacy_fram.h"
+#include "legacy_fram_mem_table.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,7 +94,30 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   /******************* Migration Example - save demo file *******************/
-  bool status = InitFramMemory();
+  uint8_t readBuf1Byte = 0x00;
+  uint32_t readBuf4Byte = 0x00;
+
+  uint8_t imageActivateFlag = 0x55;
+  //-------------------------------
+  uint32_t voltLev1 = 0x11223344;
+
+  InitFramMemory();
+
+  WriteFramMemoryWithoutDebug(FADDR_IMAGE_ACTIVATE_FLAG, &imageActivateFlag, 1);
+  ReadFramMemoryWithoutDebug(FADDR_IMAGE_ACTIVATE_FLAG, &readBuf1Byte, 1);
+
+  if (imageActivateFlag != readBuf1Byte)
+  {
+    for(;;);
+  }
+
+  WriteFramMemoryWithoutDebug(FADDR_VOLTAGE_LEVEL1_COUNTER_L1, (uint8_t *)&voltLev1, 4);
+  ReadFramMemoryWithoutDebug(FADDR_VOLTAGE_LEVEL1_COUNTER_L1, (uint8_t *)&readBuf4Byte, 4);
+
+  if (voltLev1 != readBuf4Byte)
+  {
+    for(;;);
+  }
 
   /* USER CODE END 2 */
 
