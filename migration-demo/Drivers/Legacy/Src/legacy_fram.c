@@ -7,7 +7,6 @@
 
 extern SPI_HandleTypeDef hspi1;
 
-
 static lfs_t lfs;
 static W25Q128_TypeDef w25;
 static const struct lfs_config cfg = {
@@ -42,7 +41,7 @@ bool InitFramMemory(void) {
     return true;
 }
 
-bool ReadFramMemoryWithoutDebug(uint16_t address, uint8_t *buff, uint16_t len) {
+bool ReadFramMemory(uint16_t address, uint8_t *buff, uint16_t len) {
     char name[8];
     lfs_file_t file;
     addr_to_filename(address, name);
@@ -55,7 +54,7 @@ bool ReadFramMemoryWithoutDebug(uint16_t address, uint8_t *buff, uint16_t len) {
     return (r == (lfs_ssize_t)len);
 }
 
-bool WriteFramMemoryWithoutDebug(uint16_t address, uint8_t *buff, uint16_t len) {
+bool WriteFramMemory(uint16_t address, uint8_t *buff, uint16_t len) {
     char name[8];
     lfs_file_t file;
     addr_to_filename(address, name);

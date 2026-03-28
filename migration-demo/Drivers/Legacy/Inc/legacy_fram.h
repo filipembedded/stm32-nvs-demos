@@ -7,7 +7,7 @@
 #include "lfs.h"
 
 bool InitFramMemory(void);
-bool ReadFramMemoryWithoutDebug(uint16_t address, uint8_t *buff, uint16_t len);
-bool WriteFramMemoryWithoutDebug(uint16_t address, uint8_t *buff, uint16_t len);
+bool ReadFramMemory(uint16_t address, uint8_t *buff, uint16_t len);
+bool WriteFramMemory(uint16_t address, uint8_t *buff, uint16_t len);
 
 #endif // LEGACY_FRAM_H

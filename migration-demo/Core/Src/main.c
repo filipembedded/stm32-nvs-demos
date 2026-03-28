@@ -103,16 +103,16 @@ int main(void)
 
   InitFramMemory();
 
-  WriteFramMemoryWithoutDebug(FADDR_IMAGE_ACTIVATE_FLAG, &imageActivateFlag, 1);
-  ReadFramMemoryWithoutDebug(FADDR_IMAGE_ACTIVATE_FLAG, &readBuf1Byte, 1);
+  WriteFramMemory(FADDR_IMAGE_ACTIVATE_FLAG, &imageActivateFlag, 1);
+  ReadFramMemory(FADDR_IMAGE_ACTIVATE_FLAG, &readBuf1Byte, 1);
 
   if (imageActivateFlag != readBuf1Byte)
   {
     for(;;);
   }
 
-  WriteFramMemoryWithoutDebug(FADDR_VOLTAGE_LEVEL1_COUNTER_L1, (uint8_t *)&voltLev1, 4);
-  ReadFramMemoryWithoutDebug(FADDR_VOLTAGE_LEVEL1_COUNTER_L1, (uint8_t *)&readBuf4Byte, 4);
+  WriteFramMemory(FADDR_VOLTAGE_LEVEL1_COUNTER_L1, (uint8_t *)&voltLev1, 4);
+  ReadFramMemory(FADDR_VOLTAGE_LEVEL1_COUNTER_L1, (uint8_t *)&readBuf4Byte, 4);
 
   if (voltLev1 != readBuf4Byte)
   {
