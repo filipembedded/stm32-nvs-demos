@@ -9,3 +9,6 @@
 	path = libraries/fram-xplat
 	url = https://github.com/filipembedded/fram-xplat.git
 	branch = main
+[submodule "libraries/nor_fx"]
+	path = libraries/nor_fx
+	url = https://github.com/filipembedded/nor_fx
