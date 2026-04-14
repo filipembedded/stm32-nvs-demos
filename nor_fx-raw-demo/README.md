@@ -37,7 +37,21 @@ Pored full sweep-a, demo radi i reprezentativne testove za:
 U projektu postoji log apstrakcija u `Core/Src/norfx_test_log.c`.
 Logovanje je povezano na USB CDC i self-test ispisuje progres i rezultat preko virtuelnog COM porta.
 
-Pošto je full sweep dugotrajan, progres se ispisuje periodično tokom prolaza kroz sektore.
+Tokom full sweep-a ispisuje se jedna linija za svaki sektor sa vremenima za:
+
+- erase
+- blank read
+- write
+- verify read
+- ukupan prolaz sektora
+
+Na kraju testa ispisuje se i rezime performansi za:
+
+- čitanje (`read`)
+- upis (`write`)
+- brisanje (`erase`)
+
+Vremena se mere na targetu sa mikrosekundskom rezolucijom kada je dostupan DWT cycle counter.
 
 ## Build
 
