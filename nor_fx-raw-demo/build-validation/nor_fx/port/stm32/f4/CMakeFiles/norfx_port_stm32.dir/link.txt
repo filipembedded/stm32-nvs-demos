@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnorfx_port_stm32.a CMakeFiles/norfx_port_stm32.dir/stm32f4x_port.c.o
+/usr/bin/ranlib libnorfx_port_stm32.a

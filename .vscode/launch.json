@@ -1,0 +1,101 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceFolder}/w25q128-littlefs-demo",
+            "executable": "${workspaceFolder}/w25q128-littlefs-demo/build/winbond_flash.elf",
+            "name": "JLink | w25q128-littlefs-demo | STM32F411CE",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32F411CE",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        {
+            "cwd": "${workspaceFolder}/w25q128-lowlevel-demo",
+            "executable": "${workspaceFolder}/w25q128-lowlevel-demo/build/Debug/w25q128-lowlevel-demo.elf",
+            "name": "JLink | w25q128-lowlevel-demo | STM32F411CE",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32F411CE",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        {
+            "cwd": "${workspaceFolder}/fram-demo",
+            "executable": "${workspaceFolder}/fram-demo/build/Debug/fram-demo.elf",
+            "name": "JLink | fram-demo | STM32F411CE",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32F411CE",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        {
+            "cwd": "${workspaceFolder}/nor_fx-raw-demo",
+            "executable": "${workspaceFolder}/nor_fx-raw-demo/build/Debug/nor_fx-raw-demo.elf",
+            "name": "JLink | nor_fx-raw-demo | STM32F411CE",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32F411CE",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        {
+            "cwd": "${workspaceFolder}/migration-demo",
+            "executable": "${workspaceFolder}/migration-demo/build/winbond_flash.elf",
+            "name": "JLink | migration-demo | STM32F411CE",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32F411CE",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        {
+            "cwd": "${workspaceFolder}/h5-migration",
+            "executable": "${workspaceFolder}/h5-migration/build/h5-migration.elf",
+            "name": "JLink | h5-migration | STM32H562RG",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32H562RG",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        }
+    ]
+}

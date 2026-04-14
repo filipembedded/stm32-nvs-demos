@@ -1,0 +1,14 @@
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/CMakeFiles/nor_fx-raw-demo.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/CMakeFiles/edit_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/CMakeFiles/rebuild_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/CMakeFiles/edit_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/CMakeFiles/rebuild_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/driver/CMakeFiles/norfx_driver.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/driver/CMakeFiles/edit_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/driver/CMakeFiles/rebuild_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/port/stm32/f4/CMakeFiles/norfx_port_stm32.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/port/stm32/f4/CMakeFiles/edit_cache.dir
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/build-validation/nor_fx/port/stm32/f4/CMakeFiles/rebuild_cache.dir

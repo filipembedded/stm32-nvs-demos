@@ -1,0 +1,15 @@
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:21:19:norfx_reset	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:66:19:norfx_read_status_reg	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:113:19:norfx_write_enable	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:155:19:norfx_write_disable	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:197:19:norfx_read_id	40	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:286:19:norfx_read	32	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:342:19:norfx_fast_read	40	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:399:19:norfx_erase_sector	32	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:466:19:norfx_page_program	40	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:550:19:norfx_write	72	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:641:17:calculate_bytes_to_modify	16	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:662:26:check_flash_ready	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:712:26:check_id_kind	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:740:16:get_id_size	24	static
+/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/driver/nor_fx.c:777:26:convert_buf_to_id	24	static

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnorfx_driver.a CMakeFiles/norfx_driver.dir/nor_fx.c.o
+/usr/bin/ranlib libnorfx_driver.a

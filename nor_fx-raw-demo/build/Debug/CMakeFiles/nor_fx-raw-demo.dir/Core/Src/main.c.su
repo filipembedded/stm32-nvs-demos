@@ -1,0 +1,6 @@
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/main.c:80:5:main	32	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/main.c:136:6:SystemClock_Config	88	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/main.c:182:13:MX_SPI1_Init	8	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/main.c:220:13:MX_USB_OTG_FS_HCD_Init	8	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/main.c:251:13:MX_GPIO_Init	40	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/main.c:285:6:Error_Handler	8	static,ignoring_inline_asm

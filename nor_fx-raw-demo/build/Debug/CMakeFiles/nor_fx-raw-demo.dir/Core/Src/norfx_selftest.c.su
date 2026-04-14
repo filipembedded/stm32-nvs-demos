@@ -1,0 +1,15 @@
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:48:26:norfx_selftest_run	40	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:94:13:norfx_expect_status	16	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:110:13:norfx_expect_true	16	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:121:13:norfx_expect_buffer_value	40	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:148:13:norfx_expect_buffer_equal	40	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:175:13:norfx_fill_pattern	32	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:188:13:norfx_test_reset_and_status	24	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:205:13:norfx_test_ids	40	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:269:13:norfx_test_write_latch	24	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:305:13:norfx_test_erase_and_blank_reads	24	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:338:13:norfx_test_page_program_and_readback	72	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:381:13:norfx_test_read_across_page_boundary	56	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:436:13:norfx_test_nor_programming_behavior	24	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:473:13:norfx_test_write_preserves_neighbors	296	static
+/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_selftest.c:548:13:norfx_test_write_across_sector_boundary	40	static
