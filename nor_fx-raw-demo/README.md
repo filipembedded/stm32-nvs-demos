@@ -15,18 +15,29 @@ STM32F4 demo koji pokreće sekvencijalni self-test za `nor_fx` biblioteku na rea
 
 ## Test region
 
-Testovi su destruktivni za poslednja dva sektora fleša:
+Testovi su sada **FULL / destruktivni za ceo flash**:
 
-- sektor `4094`
+- sektor `0`
+- ...
 - sektor `4095`
 
-Ostatak memorije ne diraju.
+To znači da demo briše, programira i verifikuje **sve sektore** spoljnog NOR fleša.
+
+> Ako na čipu postoji bilo kakav važan sadržaj, ovaj demo će ga obrisati.
+
+Pored full sweep-a, demo radi i reprezentativne testove za:
+
+- cross-page read
+- NOR `1 -> 0` behavior
+- `norfx_write()` read-modify-write
+- cross-sector write preko granice sektora `0 -> 1`
 
 ## Logovanje
 
 U projektu postoji log apstrakcija u `Core/Src/norfx_test_log.c`.
-Trenutno je spremna za USB CDC transport, ali USB CDC middleware još nije prisutan u ovom demo projektu.
-Kada se doda CDC device stack, dovoljno je implementirati `norfx_test_log_transport_ready()` i `norfx_test_log_transport_write()`.
+Logovanje je povezano na USB CDC i self-test ispisuje progres i rezultat preko virtuelnog COM porta.
+
+Pošto je full sweep dugotrajan, progres se ispisuje periodično tokom prolaza kroz sektore.
 
 ## Build
 

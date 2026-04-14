@@ -1,22 +1,63 @@
 #include "norfx_test_log.h"
 
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
-__attribute__((weak)) int norfx_test_log_transport_ready(void)
+#define NORFX_USB_ENUMERATION_TIMEOUT_MS  2000u
+#define NORFX_USB_TX_TIMEOUT_MS           100u
+
+extern USBD_HandleTypeDef hUsbDeviceFS;
+
+int norfx_test_log_transport_ready(void)
 {
-    return 0;
+    return (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED) &&
+           (hUsbDeviceFS.pClassData != NULL);
 }
 
-__attribute__((weak)) void norfx_test_log_transport_write(const uint8_t *data, size_t length)
+void norfx_test_log_transport_write(const uint8_t *data, size_t length)
 {
-    (void)data;
-    (void)length;
+    if (data == NULL || length == 0u)
+    {
+        return;
+    }
+
+    size_t offset = 0u;
+    while (offset < length)
+    {
+        size_t chunk_length = length - offset;
+        if (chunk_length > APP_TX_DATA_SIZE)
+        {
+            chunk_length = APP_TX_DATA_SIZE;
+        }
+
+        uint32_t start_tick = HAL_GetTick();
+        while (CDC_Transmit_FS((uint8_t *)&data[offset], (uint16_t)chunk_length) == USBD_BUSY)
+        {
+            if ((HAL_GetTick() - start_tick) > NORFX_USB_TX_TIMEOUT_MS)
+            {
+                return;
+            }
+        }
+
+        offset += chunk_length;
+    }
 }
 
 void norfx_test_log_init(void)
 {
+    uint32_t start_tick = HAL_GetTick();
+
+    while (norfx_test_log_transport_ready() == 0)
+    {
+        if ((HAL_GetTick() - start_tick) > NORFX_USB_ENUMERATION_TIMEOUT_MS)
+        {
+            return;
+        }
+    }
 }
 
 void norfx_test_log_write_bytes(const uint8_t *data, size_t length)

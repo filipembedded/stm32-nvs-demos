@@ -7,10 +7,12 @@
 #include <string.h>
 
 #define NORFX_TEST_WEL_MASK          0x02u
-#define NORFX_TEST_BASE_SECTOR       (NORFX_BLOCK_COUNT - 2u)
-#define NORFX_TEST_SECOND_SECTOR     (NORFX_BLOCK_COUNT - 1u)
+#define NORFX_TEST_BASE_SECTOR       0u
+#define NORFX_TEST_SECOND_SECTOR     1u
 #define NORFX_TEST_BASE_PAGE         (NORFX_TEST_BASE_SECTOR * 16u)
 #define NORFX_TEST_SECOND_BASE_PAGE  (NORFX_TEST_SECOND_SECTOR * 16u)
+#define NORFX_TEST_LAST_SECTOR       (NORFX_BLOCK_COUNT - 1u)
+#define NORFX_TEST_PROGRESS_INTERVAL 64u
 
 typedef bool (*norfx_test_function_t)(struct norfx_device *dev);
 
@@ -44,6 +46,7 @@ static bool norfx_test_read_across_page_boundary(struct norfx_device *dev);
 static bool norfx_test_nor_programming_behavior(struct norfx_device *dev);
 static bool norfx_test_write_preserves_neighbors(struct norfx_device *dev);
 static bool norfx_test_write_across_sector_boundary(struct norfx_device *dev);
+static bool norfx_test_full_sector_sweep(struct norfx_device *dev);
 
 norfx_selftest_summary_t norfx_selftest_run(struct norfx_device *dev)
 {
@@ -57,12 +60,16 @@ norfx_selftest_summary_t norfx_selftest_run(struct norfx_device *dev)
         {"nor_programming_behavior", norfx_test_nor_programming_behavior},
         {"write_preserves_neighbors", norfx_test_write_preserves_neighbors},
         {"write_across_sector_boundary", norfx_test_write_across_sector_boundary},
+        {"full_sector_sweep", norfx_test_full_sector_sweep},
     };
 
     norfx_selftest_summary_t summary = {0};
 
     norfx_test_log_printf("\r\n[norfx] self-test start\r\n");
-    norfx_test_log_printf("[norfx] reserved sectors: %lu and %lu\r\n",
+    norfx_test_log_printf("[norfx] FULL FLASH TEST enabled\r\n");
+    norfx_test_log_printf("[norfx] destructive range: sectors 0..%lu\r\n",
+                          (unsigned long)NORFX_TEST_LAST_SECTOR);
+    norfx_test_log_printf("[norfx] representative boundary sectors: %lu and %lu\r\n",
                           (unsigned long)NORFX_TEST_BASE_SECTOR,
                           (unsigned long)NORFX_TEST_SECOND_SECTOR);
 
@@ -608,4 +615,79 @@ static bool norfx_test_write_across_sector_boundary(struct norfx_device *dev)
     }
 
     return norfx_expect_true("after_cross_sector_ff", after_boundary == 0xFFu);
+}
+
+static bool norfx_test_full_sector_sweep(struct norfx_device *dev)
+{
+    for (uint32_t sector = 0u; sector < NORFX_BLOCK_COUNT; sector++)
+    {
+        uint32_t base_page = sector * 16u;
+        uint8_t seed = (uint8_t)(0xA5u ^
+                                 (uint8_t)(sector & 0xFFu) ^
+                                 (uint8_t)((sector >> 8) & 0xFFu) ^
+                                 (uint8_t)((sector >> 16) & 0xFFu));
+
+        if (((sector % NORFX_TEST_PROGRESS_INTERVAL) == 0u) || (sector == NORFX_TEST_LAST_SECTOR))
+        {
+            norfx_test_log_printf("[full] sector %lu/%lu\r\n",
+                                  (unsigned long)sector,
+                                  (unsigned long)NORFX_TEST_LAST_SECTOR);
+        }
+
+        if (norfx_erase_sector(dev, (uint16_t)sector) != NORFX_SUCCESS)
+        {
+            norfx_test_log_printf("[full] erase failed sector=%lu\r\n", (unsigned long)sector);
+            return false;
+        }
+
+        memset(norfx_test_readback, 0x00, sizeof(norfx_test_readback));
+        if (norfx_fast_read(dev, base_page, 0u, NORFX_SECTOR_SIZE, norfx_test_readback) != NORFX_SUCCESS)
+        {
+            norfx_test_log_printf("[full] blank fast-read failed sector=%lu\r\n", (unsigned long)sector);
+            return false;
+        }
+
+        if (!norfx_expect_buffer_value("full_blank_sector_ff",
+                                       norfx_test_readback,
+                                       NORFX_SECTOR_SIZE,
+                                       0xFFu))
+        {
+            norfx_test_log_printf("[full] blank verify failed sector=%lu\r\n", (unsigned long)sector);
+            return false;
+        }
+
+        norfx_fill_pattern(norfx_test_sector_scratch, NORFX_SECTOR_SIZE, seed);
+        for (uint32_t page_index = 0u; page_index < 16u; page_index++)
+        {
+            if (norfx_page_program(dev,
+                                   base_page + page_index,
+                                   0u,
+                                   NORFX_PAGE_SIZE,
+                                   &norfx_test_sector_scratch[page_index * NORFX_PAGE_SIZE]) != NORFX_SUCCESS)
+            {
+                norfx_test_log_printf("[full] page program failed sector=%lu page=%lu\r\n",
+                                      (unsigned long)sector,
+                                      (unsigned long)page_index);
+                return false;
+            }
+        }
+
+        memset(norfx_test_readback, 0x00, sizeof(norfx_test_readback));
+        if (norfx_fast_read(dev, base_page, 0u, NORFX_SECTOR_SIZE, norfx_test_readback) != NORFX_SUCCESS)
+        {
+            norfx_test_log_printf("[full] programmed fast-read failed sector=%lu\r\n", (unsigned long)sector);
+            return false;
+        }
+
+        if (!norfx_expect_buffer_equal("full_sector_compare",
+                                       norfx_test_sector_scratch,
+                                       norfx_test_readback,
+                                       NORFX_SECTOR_SIZE))
+        {
+            norfx_test_log_printf("[full] compare failed sector=%lu\r\n", (unsigned long)sector);
+            return false;
+        }
+    }
+
+    return true;
 }
