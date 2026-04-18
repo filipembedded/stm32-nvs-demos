@@ -66,6 +66,22 @@
             }
         },
         {
+            "cwd": "${workspaceFolder}/nor_fx-lfs-demo",
+            "executable": "${workspaceFolder}/nor_fx-lfs-demo/build/Debug/nor_fx-lfs-demo.elf",
+            "name": "JLink | nor_fx-lfs-demo | STM32F411CE",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "device": "STM32F411CE",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        {
             "cwd": "${workspaceFolder}/migration-demo",
             "executable": "${workspaceFolder}/migration-demo/build/winbond_flash.elf",
             "name": "JLink | migration-demo | STM32F411CE",
