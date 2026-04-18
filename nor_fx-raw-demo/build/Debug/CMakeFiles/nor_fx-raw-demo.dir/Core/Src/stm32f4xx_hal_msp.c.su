@@ -1,5 +1,0 @@
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/stm32f4xx_hal_msp.c:62:6:HAL_MspInit	16	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/stm32f4xx_hal_msp.c:85:6:HAL_SPI_MspInit	48	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/stm32f4xx_hal_msp.c:123:6:HAL_SPI_MspDeInit	16	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/stm32f4xx_hal_msp.c:153:6:HAL_HCD_MspInit	48	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/stm32f4xx_hal_msp.c:190:6:HAL_HCD_MspDeInit	16	static

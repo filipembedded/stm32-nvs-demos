@@ -1,7 +1,0 @@
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:7:27:norfx_test_log_transport_ready	4	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:12:28:norfx_test_log_transport_write	16	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:18:6:norfx_test_log_init	4	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:22:6:norfx_test_log_write_bytes	16	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:37:6:norfx_test_log_write	16	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:47:6:norfx_test_log_printf	216	static
-/home/filip/Documents/code/stm32-nvs-demos/nor_fx-raw-demo/Core/Src/norfx_test_log.c:75:5:__io_putchar	24	static

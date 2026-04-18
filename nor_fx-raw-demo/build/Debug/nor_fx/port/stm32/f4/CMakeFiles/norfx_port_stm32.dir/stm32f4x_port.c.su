@@ -1,6 +1,0 @@
-/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/port/stm32/f4/stm32f4x_port.c:6:19:spi_chip_select	24	static
-/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/port/stm32/f4/stm32f4x_port.c:24:19:spi_chip_deselect	24	static
-/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/port/stm32/f4/stm32f4x_port.c:42:19:spi_write	32	static
-/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/port/stm32/f4/stm32f4x_port.c:60:19:spi_read	32	static
-/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/port/stm32/f4/stm32f4x_port.c:78:10:get_tick_ms	16	static
-/home/filip/Documents/code/stm32-nvs-demos/libraries/nor_fx/port/stm32/f4/stm32f4x_port.c:84:6:delay_ms	16	static
